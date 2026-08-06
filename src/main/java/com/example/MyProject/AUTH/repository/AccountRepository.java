@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account,Long> {
         List<Account> findByGmailOrAccountname(String accountname, String gmail);
         boolean existsBygmail(String gmail);
+        Optional<Account> findBygmail(String gmail);
 }

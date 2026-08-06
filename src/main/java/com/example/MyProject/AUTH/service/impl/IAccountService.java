@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.Optional;
 public class IAccountService implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
-
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void create(AccountRequest rq) {
@@ -31,8 +32,9 @@ public class IAccountService implements AccountService {
         if(checkgmail==true){
           throw new RuntimeException("Tài khoản đã tồn tại");
         }
-        ac.setEnabled(true);
-        ac.setRole("User");
+        ac.setPassword(passwordEncoder.encode(rq.password()));
+        ac.setEnabled(false);
+        ac.setRole("USER");
         accountRepository.save(ac);
     }
 

@@ -1,5 +1,6 @@
 package com.example.MyProject.AUTH.security.jwt;
 
+import com.example.MyProject.AUTH.entity.Account;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,8 +23,10 @@ public class JwtService {
     private Long expiration;
     //Create Token
     public String generateToken(UserDetails userDetails){
+        Account account = (Account) userDetails;
         Map<String,Object> claims= new HashMap<>();
-        //you can add role: claims.put("role",userDetai;s.getAuthorities()));
+        claims.put("role",account.getRole());
+        claims.put("id",account.getId());
         return createToken(claims,userDetails.getUsername());
     }
     private String createToken(Map<String,Object> claims,String subject){
