@@ -10,9 +10,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class MyProjectApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(MyProjectApplication.class, args);
         System.out.println("Run Success");
     }
-
+    @Bean
+    CommandLineRunner run() {
+        return args -> {
+            System.out.println("BCRYPT 123456: " + new BCryptPasswordEncoder().encode("123456"));
+        };
+    }
 }

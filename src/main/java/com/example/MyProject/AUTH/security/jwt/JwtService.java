@@ -22,12 +22,12 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private Long expiration;
     //Create Token
-    public String generateToken(UserDetails userDetails){
-        Account account = (Account) userDetails;
+    public String generateToken(Account account){
+
         Map<String,Object> claims= new HashMap<>();
         claims.put("role",account.getRole());
         claims.put("id",account.getId());
-        return createToken(claims,userDetails.getUsername());
+        return createToken(claims,account.getGmail());
     }
     private String createToken(Map<String,Object> claims,String subject){
         return Jwts.builder()
@@ -43,7 +43,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // Get username to token
+    // Get gmail to token
     public String extractUsername(String token) {
         return extractClaims(token, Claims::getSubject);
     }

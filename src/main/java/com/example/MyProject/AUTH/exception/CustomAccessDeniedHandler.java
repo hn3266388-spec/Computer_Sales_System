@@ -22,7 +22,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
               response.setStatus(HttpServletResponse.SC_FORBIDDEN);
               response.setContentType("application/json");
               Map<String,Object> errorRole=Map.of("code",403,
-                      "message","Bạn không đủ quyền để truy cập!");
+                      "message","Ban khong đu quyen đe truy cap!");
               objectMapper.writeValue(response.getWriter(),errorRole);
     }
 }

@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 public class TestAuthController {
 
-    @Autowired
-    private JwtService jwtService;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @GetMapping("/token")
-    public String getToken() {
-        UserDetails user = userDetailsService.loadUserByUsername("admin");
-        return jwtService.generateToken(user);
-    }
+//    @Autowired
+//    private JwtService jwtService;
+//
+//    @Autowired
+//    private UserDetailsService userDetailsService;
+//
+//    @GetMapping("/token")
+//    public String getToken() {
+//        UserDetails user = userDetailsService.loadUserByUsername("admin");
+//        return jwtService.generateToken(user);
+//    }
 }

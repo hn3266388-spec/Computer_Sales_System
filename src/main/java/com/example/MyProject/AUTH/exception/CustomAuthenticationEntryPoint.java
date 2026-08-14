@@ -21,7 +21,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
         Map<String,Object> errorRole=Map.of("code",401,
-                "message","Bạn chưa đăng nhập hoặc token hết hạn!!");
+                "message","Ban chua dang nhap hoac token het han!!");
         objectMapper.writeValue(response.getWriter(),errorRole);
     }
 }
