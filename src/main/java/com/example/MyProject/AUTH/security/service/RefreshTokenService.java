@@ -20,11 +20,12 @@ public class RefreshTokenService {
     private Long refreshTokenExpirationMs;
     private final RefreshTokenRepository refreshTokenRepository;
     private final AccountRepository accountRepository;
+
     @Transactional
-    public RefreshToken createRefreshToken(Long account_id){
-        Account account= accountRepository.findById(account_id).orElseThrow(()-> new IllegalArgumentException("User not exist"));
+    public RefreshToken createRefreshToken(Long account_id) {
+        Account account = accountRepository.findById(account_id).orElseThrow(() -> new IllegalArgumentException("User not exist"));
         refreshTokenRepository.deleteAllByAccount_Id(account_id);
-        RefreshToken refreshToken=RefreshToken.builder()
+        RefreshToken refreshToken = RefreshToken.builder()
                 .account(account)
                 .token(UUID.randomUUID().toString())
                 .expiryDate(Instant.now().plusMillis(refreshTokenExpirationMs))
@@ -32,19 +33,22 @@ public class RefreshTokenService {
                 .build();
         return refreshTokenRepository.save(refreshToken);
     }
-    public Optional<RefreshToken> finByToken(String token){
+
+    public Optional<RefreshToken> finByToken(String token) {
         return refreshTokenRepository.findAllByToken(token);
     }
-    public RefreshToken verifyExpiration(RefreshToken refreshToken){
-        if(refreshToken.getExpiryDate().compareTo(Instant.now())<0){
+
+    public RefreshToken verifyExpiration(RefreshToken refreshToken) {
+        if (refreshToken.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshToken.setRevoked(true);
             refreshTokenRepository.save(refreshToken);
             throw new RuntimeException("Refresh token expiry!");
         }
         return refreshToken;
     }
+
     @Transactional
-    public void revokeAllAcoountToken(Long account_id){
+    public void revokeAllAcoountToken(Long account_id) {
         refreshTokenRepository.deleteAllByAccount_Id(account_id);
     }
 }

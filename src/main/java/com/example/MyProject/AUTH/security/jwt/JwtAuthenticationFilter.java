@@ -24,31 +24,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        final String authHeader= request.getHeader("Authorization");
-        final  String jwt;
+        final String authHeader = request.getHeader("Authorization");
+        final String jwt;
         final String username;
         //check header issert and check first string "Header"
-        if(authHeader==null || !authHeader.startsWith("Bearer")){
-            filterChain.doFilter(request,response);
+        if (authHeader == null || !authHeader.startsWith("Bearer")) {
+            filterChain.doFilter(request, response);
             return;
         }
-        jwt=authHeader.substring(7);
-        try{
-            username=jwtService.extractUsername(jwt);
-            if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
-                UserDetails userDetails=this.userDetailsService.loadUserByUsername(username);
-                if(jwtService.validateToken(jwt,userDetails)){
-                    UsernamePasswordAuthenticationToken authenticationToken=
-                            new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+        jwt = authHeader.substring(7);
+        try {
+            username = jwtService.extractUsername(jwt);
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                if (jwtService.validateToken(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
             }
         } catch (Exception e) {
-            log.error("Error jwt check token",e);
+            log.error("Error jwt check token", e);
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }

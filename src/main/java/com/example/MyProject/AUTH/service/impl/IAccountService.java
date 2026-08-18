@@ -1,8 +1,8 @@
 package com.example.MyProject.AUTH.service.impl;
 
 
-import com.example.MyProject.AUTH.dto.request.AccountRequest;
-import com.example.MyProject.AUTH.dto.response.AccountResponse;
+import com.example.MyProject.AUTH.dto.auth.request.AccountRequest;
+import com.example.MyProject.AUTH.dto.auth.response.AccountResponse;
 import com.example.MyProject.AUTH.entity.Account;
 import com.example.MyProject.AUTH.mapper.AccountMapper;
 import com.example.MyProject.AUTH.repository.AccountRepository;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

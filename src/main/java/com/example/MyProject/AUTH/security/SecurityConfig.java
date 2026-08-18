@@ -47,6 +47,15 @@ public class SecurityConfig {
                         .requestMatchers("/api/account/login").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/account/register").permitAll()
+                        .requestMatchers("/api/account/refresh-token").permitAll()
+                        .requestMatchers("/api/brands").permitAll()
+                        .requestMatchers("/api/brands/search").permitAll()
+                        .requestMatchers("/api/categories").permitAll()
+                        .requestMatchers("/api/products").permitAll()
+                        .requestMatchers("/api/products/search").permitAll()
+                        .requestMatchers("/api/products/*/product_brands").permitAll()
+                        .requestMatchers("/api/products/*/product_categories").permitAll()
+                        .requestMatchers("/api/products/*/*/product_categories_brands").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -81,7 +90,7 @@ public class SecurityConfig {
 //        UserDetails userDetails = User.builder()
 //                .username("admin")
 //                .password("$2a$12$S1mn2K1MjdpWNzsSAddAo.CV.K8NruLQgQLrJmah8GLmTjMK8UP7K")
-//                .roles("Cặc")
+//                .roles("Cc")
 //                .build();
 //        return new InMemoryUserDetailsManager(userDetails);
 //    }

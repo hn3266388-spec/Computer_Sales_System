@@ -3,9 +3,9 @@ package com.example.MyProject.AUTH.controller;
 
 import com.example.MyProject.AUTH.common.ApiResponse;
 import com.example.MyProject.AUTH.common.BaseController;
-import com.example.MyProject.AUTH.dto.request.AccountRequest;
-import com.example.MyProject.AUTH.dto.request.LoginRequest;
-import com.example.MyProject.AUTH.dto.response.AccountResponse;
+import com.example.MyProject.AUTH.dto.auth.request.AccountRequest;
+import com.example.MyProject.AUTH.dto.auth.request.LoginRequest;
+import com.example.MyProject.AUTH.dto.auth.response.AccountResponse;
 import com.example.MyProject.AUTH.entity.Account;
 import com.example.MyProject.AUTH.entity.RefreshToken;
 import com.example.MyProject.AUTH.repository.AccountRepository;
@@ -25,7 +25,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

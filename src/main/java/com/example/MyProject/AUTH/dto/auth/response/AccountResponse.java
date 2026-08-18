@@ -1,4 +1,4 @@
-package com.example.MyProject.AUTH.dto.response;
+package com.example.MyProject.AUTH.dto.auth.response;
 
 public record AccountResponse(
         Long id,

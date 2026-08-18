@@ -1,4 +1,4 @@
-package com.example.MyProject.AUTH.dto.request;
+package com.example.MyProject.AUTH.dto.auth.request;
 
 public record LoginRequest(
         String gmail,
