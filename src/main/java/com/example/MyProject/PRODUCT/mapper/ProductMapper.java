@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 
 @Mapper(componentModel = "spring",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ProductMapper {
+    @Mapping(source ="brandsId",target = "brands.id")
+    @Mapping(source="categoriesId",target ="categories.id")
     Products toEntity(RequestProduct requestProduct);
     @Mapping(source = "brands.id", target = "brandsId")
     @Mapping(source = "categories.id", target = "categoriesId")

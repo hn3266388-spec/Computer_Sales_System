@@ -5,10 +5,12 @@ import com.example.MyProject.PRODUCT.dto.product.ResponseProduct;
 import com.example.MyProject.PRODUCT.dto.product.ResponseSearchProduct;
 import com.example.MyProject.PRODUCT.entity.Brands;
 import com.example.MyProject.PRODUCT.entity.Categories;
+import com.example.MyProject.PRODUCT.entity.Inventory;
 import com.example.MyProject.PRODUCT.entity.Products;
 import com.example.MyProject.PRODUCT.mapper.ProductMapper;
 import com.example.MyProject.PRODUCT.repository.BrandsRepository;
 import com.example.MyProject.PRODUCT.repository.CategoriesRepository;
+import com.example.MyProject.PRODUCT.repository.InventoryRepository;
 import com.example.MyProject.PRODUCT.repository.ProductRepository;
 import com.example.MyProject.PRODUCT.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +29,7 @@ public class IProductService implements ProductService {
     @Autowired
     private final ProductMapper productMapper;
     @Autowired
-    private final BrandsRepository brandsRepository;
-    @Autowired
-    private final CategoriesRepository categoriesRepository;
+    private final InventoryRepository inventoryRepository;
     @Override
     public void createProduct(RequestProduct requestProduct) {
 //        Brands brands= brandsRepository.findById(requestProduct.brandsId()).orElseThrow(()->new RuntimeException("Brands not exits!"));
@@ -72,6 +74,10 @@ public class IProductService implements ProductService {
 
     @Override
     public void deleteProduct(Long id) {
+        Optional<Inventory> inventory=inventoryRepository.findByProducts_Id(id);
+        if(inventory.isPresent()){
+            throw new RuntimeException("Sản phẩm vẫn còn tồn trong khng thể xóa!");
+        }
           productRepository.deleteById(id);
     }
 
